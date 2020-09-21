@@ -43,10 +43,8 @@ export default function Home() {
                 url: url,
                 headers: {
                     "content-type": "application/octet-stream",
-                    "x-rapidapi-host":
-                        "dev132-cricket-live-scores-v1.p.rapidapi.com",
-                    "x-rapidapi-key":
-                        "ba00f54768msh78ca05cabcadb79p11c55djsn57ddeb36eb3d",
+                    "x-rapidapi-host": process.env.RAPID_API_HOST,
+                    "x-rapidapi-key": process.env.RAPID_API_KEY,
                     useQueryString: true,
                 },
                 params: {
