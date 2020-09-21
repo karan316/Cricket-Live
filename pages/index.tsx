@@ -43,8 +43,8 @@ export default function Home() {
                 url: url,
                 headers: {
                     "content-type": "application/octet-stream",
-                    "x-rapidapi-host": process.env.RAPID_API_HOST,
-                    "x-rapidapi-key": process.env.RAPID_API_KEY,
+                    "x-rapidapi-host": process.env.NEXT_PUBLIC_RAPID_API_HOST,
+                    "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPID_API_KEY,
                     useQueryString: true,
                 },
                 params: {
@@ -52,7 +52,7 @@ export default function Home() {
                     inprogresslimit: "5",
                     upcomingLimit: "5",
                 },
-            }).then((response) => response.data)
+            }).then((response: AxiosResponse) => response.data)
     );
 
     try {
