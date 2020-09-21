@@ -8,12 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.161",
     "axios": "^0.20.0",
-    "lodash": "^4.17.20",
     "next": "9.5.3",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "swr": "^0.3.3"
   },
   "devDependencies": {
     "@types/node": "^14.11.1",
