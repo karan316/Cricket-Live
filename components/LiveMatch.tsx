@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Match } from "../pages/index";
 interface MatchProps {
-    liveMatch: Match;
+    match: Match;
 }
-const LiveMatch: React.FC<MatchProps> = ({ liveMatch }) => {
-    if (!liveMatch) return <div>No LIVE Matches at the moment</div>;
+const LiveMatch: React.FC<MatchProps> = ({ match }) => {
+    const [liveMatch, setLiveMatch] = useState<Match>(null);
+    useEffect(() => {
+        setLiveMatch(match);
+        console.log("State: Live match", liveMatch);
+    }, [match]);
+    if (!liveMatch) return <div>Loading...</div>;
     const {
         homeTeam,
         awayTeam,
@@ -14,9 +19,9 @@ const LiveMatch: React.FC<MatchProps> = ({ liveMatch }) => {
         venue,
     } = liveMatch;
     return (
-        <div>
+        <React.Fragment>
             <div className='name'>{name}</div>
-            <div className='match'>
+            <div className='scoreboard'>
                 <div className='team'>
                     <div className='name'>{homeTeam.name}</div>
                     <div className='logo'>{homeTeam.shortName}</div>
@@ -31,8 +36,8 @@ const LiveMatch: React.FC<MatchProps> = ({ liveMatch }) => {
                 </div>
             </div>
             <div className='result'>{matchSummaryText}</div>
-            <div className='venue'>{venue}</div>
-        </div>
+            <div className='venue'>{venue.name}</div>
+        </React.Fragment>
     );
 };
 
