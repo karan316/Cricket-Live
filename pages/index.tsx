@@ -1,20 +1,21 @@
 import axios, { AxiosResponse } from "axios";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-interface Team {
+import LiveMatch from "../components/LiveMatch";
+export interface Team {
     name: String;
     shortName: String;
     isBatting: String;
 }
 
-interface Score {
+export interface Score {
     awayOvers: String;
     awayScore: String;
     homeOvers: String;
     homeScore: String;
 }
 
-interface Match {
+export interface Match {
     name: String;
     homeTeam: Team;
     awayTeam: Team;
@@ -41,7 +42,9 @@ export default function Home() {
             url,
             async (url: string) =>
                 await axios({
-                    url: url,
+                    method: "GET",
+                    url:
+                        "https://dev132-cricket-live-scores-v1.p.rapidapi.com/matchseries.php",
                     headers: {
                         "content-type": "application/octet-stream",
                         "x-rapidapi-host":
@@ -50,9 +53,7 @@ export default function Home() {
                         useQueryString: true,
                     },
                     params: {
-                        completedlimit: "5",
-                        inprogresslimit: "5",
-                        upcomingLimit: "5",
+                        seriesid: "2514",
                     },
                 }).then((response: AxiosResponse) => response.data)
         );
@@ -63,108 +64,96 @@ export default function Home() {
             } = data);
 
             console.log("Matches: ", matches);
-            {
-                matches
-                    ? (completedIPLMatches = matches
-                          .filter(
-                              (match) =>
-                                  match.series.id === 2514 &&
-                                  match.status === "COMPLETED"
-                          )
-                          .map(
-                              ({
-                                  awayTeam,
-                                  name,
-                                  homeTeam,
-                                  isMatchDrawn,
-                                  isMatchAbandoned,
-                                  matchSummaryText,
-                                  venue,
-                                  scores,
-                              }) => ({
-                                  name,
-                                  homeTeam,
-                                  awayTeam,
-                                  isMatchDrawn,
-                                  isMatchAbandoned,
-                                  matchSummaryText,
-                                  venue,
-                                  scores,
-                              })
-                          ))
-                    : (completedIPLMatches = []);
+            if ((match) => match.status === "COMPLETED") {
+                completedIPLMatches = matches
+                    .filter((match) => match.status === "COMPLETED")
+                    .map(
+                        ({
+                            awayTeam,
+                            name,
+                            homeTeam,
+                            isMatchDrawn,
+                            isMatchAbandoned,
+                            matchSummaryText,
+                            venue,
+                            scores,
+                        }) => ({
+                            name,
+                            homeTeam,
+                            awayTeam,
+                            isMatchDrawn,
+                            isMatchAbandoned,
+                            matchSummaryText,
+                            venue,
+                            scores,
+                        })
+                    );
+                console.log("Completed: ", completedIPLMatches);
+            } else {
+                console.log("No matches completed");
             }
-            {
-                matches
-                    ? (upcomingIPLMatches = matches
-                          .filter(
-                              (match) =>
-                                  match.series.id === 2514 &&
-                                  match.status === "UPCOMING"
-                          )
-                          .map(
-                              ({
-                                  awayTeam,
-                                  name,
-                                  homeTeam,
-                                  isMatchDrawn,
-                                  isMatchAbandoned,
-                                  matchSummaryText,
-                                  venue,
-                                  scores,
-                              }) => ({
-                                  name,
-                                  homeTeam,
-                                  awayTeam,
-                                  isMatchDrawn,
-                                  isMatchAbandoned,
-                                  matchSummaryText,
-                                  venue,
-                                  scores,
-                              })
-                          ))
-                    : (upcomingIPLMatches = []);
+            if ((match) => match.status === "UPCOMING") {
+                upcomingIPLMatches = matches
+                    .filter((match) => match.status === "UPCOMING")
+                    .map(
+                        ({
+                            awayTeam,
+                            name,
+                            homeTeam,
+                            isMatchDrawn,
+                            isMatchAbandoned,
+                            matchSummaryText,
+                            venue,
+                            scores,
+                        }) => ({
+                            name,
+                            homeTeam,
+                            awayTeam,
+                            isMatchDrawn,
+                            isMatchAbandoned,
+                            matchSummaryText,
+                            venue,
+                            scores,
+                        })
+                    );
+                console.log("Upcoming: ", upcomingIPLMatches);
+            } else {
+                console.log("No upcoming matches");
             }
 
-            {
-                matches
-                    ? (liveIPLMatch = (({
-                          name,
-                          homeTeam,
-                          awayTeam,
-                          isMatchDrawn,
-                          isMatchAbandoned,
-                          matchSummaryText,
-                          venue,
-                          scores,
-                      }) => ({
-                          name,
-                          homeTeam,
-                          awayTeam,
-                          isMatchDrawn,
-                          isMatchAbandoned,
-                          matchSummaryText,
-                          venue,
-                          scores,
-                      }))(
-                          matches.find(
-                              (match) =>
-                                  match.series.id === 2514 &&
-                                  match.status === "LIVE"
-                          )
-                      ))
-                    : (liveIPLMatch = null);
+            if (matches.find((match) => match.status === "LIVE")) {
+                liveIPLMatch = (({
+                    name,
+                    homeTeam,
+                    awayTeam,
+                    isMatchDrawn,
+                    isMatchAbandoned,
+                    matchSummaryText,
+                    venue,
+                    scores,
+                }) => ({
+                    name,
+                    homeTeam,
+                    awayTeam,
+                    isMatchDrawn,
+                    isMatchAbandoned,
+                    matchSummaryText,
+                    venue,
+                    scores,
+                }))(matches.find((match) => match.status === "LIVE"));
+                console.log("LIVE: ", liveIPLMatch);
+            } else {
+                console.log("No LIVE matches at the moment");
             }
-            console.log("Completed: ", completedIPLMatches);
-            console.log("LIVE: ", liveIPLMatch);
-            console.log("Upcoming: ", upcomingIPLMatches);
         }
     } catch (error) {
         console.error(error);
     }
-    // setCompletedMatches(completedIPLMatches);
-    // setUpcomingMatches(upcomingIPLMatches);
-    // setLiveMatches(liveIPLMatches);
 
-    return <div>Home</div>;
+    useEffect(() => {
+        setCompletedMatches(completedIPLMatches);
+        setUpcomingMatches(upcomingIPLMatches);
+        setLiveMatch(liveIPLMatch);
+    }, []);
+    return <LiveMatch liveMatch={liveIPLMatch} />;
 }
