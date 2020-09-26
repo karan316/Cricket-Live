@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Match } from "../pages/index";
+import { Match } from "../interfaces";
 interface MatchProps {
     matches: Match[];
     loading: Boolean;

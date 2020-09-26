@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Match } from "../pages/index";
+import { Match } from "../interfaces";
 interface MatchProps {
     match: Match;
+    loading: Boolean;
 }
-const LiveMatch: React.FC<MatchProps> = ({ match }) => {
+const LiveMatch: React.FC<MatchProps> = ({ match, loading }) => {
     const [liveMatch, setLiveMatch] = useState<Match>(null);
     useEffect(() => {
         setLiveMatch(match);
-        console.log("State: Live match", liveMatch);
+        // console.log("State: Live match", liveMatch);
     }, [match]);
-    if (!liveMatch) return <div>Loading...</div>;
+    if (loading) return <div>Loading...</div>;
+    if (!liveMatch) return <div>No LIVE Matches at the moment</div>;
     const {
         homeTeam,
         awayTeam,

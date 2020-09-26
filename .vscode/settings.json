@@ -7,5 +7,6 @@
         "seriesid",
         "x",
         "x rapidapi host"
-    ]
+    ],
+    "svg.preview.background": "black"
 }

@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Match } from "../pages/index";
+import { Match } from "../interfaces";
+import { Accordion, AccordionPanel, Box, Text } from "grommet";
+import Loading from "../assets/svg/loading.svg";
+import MI from "../assets/svg/mi.svg";
+import CSK from "../assets/svg/csk.svg";
 interface MatchProps {
     matches: Match[];
     loading: Boolean;
@@ -10,51 +14,73 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
         setCompletedMatches(matches);
     }, [matches]);
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <Loading
+                style={{ margin: "15% 50%", width: "4em", height: "4em" }}
+            />
+        );
     }
     // console.log("Completed matches props: ", matches);
     return (
-        // <div>Completed matches</div>
-        <React.Fragment>
+        <div style={{ marginTop: "0.8em" }}>
             {completedMatches &&
                 completedMatches.map((match) => (
-                    <div key={match.name}>
-                        <div className='name'>{match.name}</div>
-                        <div className='scoreboard'>
-                            <div className='team'>
-                                <div className='name'>
-                                    {match.homeTeam.name}
-                                </div>
-                                <div className='logo'>
-                                    {match.homeTeam.shortName}
-                                </div>
-                                <div className='score'>
-                                    {match.scores.homeScore}
-                                </div>
-                                <div className='overs'>
-                                    {match.scores.homeOvers}
-                                </div>
-                            </div>
-                            <div className='team'>
-                                <div className='name'>
-                                    {match.awayTeam.name}
-                                </div>
-                                <div className='logo'>
-                                    {match.awayTeam.shortName}
-                                </div>
-                                <div className='score'>
-                                    {match.scores.awayScore}
-                                </div>
-                                <div className='overs'>
-                                    {match.scores.awayOvers}
-                                </div>
-                            </div>
-                        </div>
-                        <div className='result'>{match.matchSummaryText}</div>
-                        <div className='venue'>{match.venue.name}</div>
-                    </div>
+                    <Accordion animate={true} multiple={true} key={match.name}>
+                        <AccordionPanel
+                            label={
+                                <Box
+                                    pad='medium'
+                                    // background='white'
+                                    round='small'
+                                    direction='row'
+                                    width='80em'
+                                    justify='between'
+                                    // align='stretch'
+                                    gap='xlarge'
+                                    responsive
+                                    overflow='auto'
+                                    style={{
+                                        boxShadow:
+                                            "5px 5px 15px rgba(167, 167, 167, 0.25)",
+                                        // border: "1px solid black",
+                                        alignItems: "center",
+                                    }}
+                                    wrap>
+                                    <Box pad='small' responsive>
+                                        {match.name}
+                                    </Box>
+                                    <Box
+                                        pad='xsmall'
+                                        width='16em'
+                                        responsive
+                                        style={{ placeItems: "center" }}>
+                                        <MI />
+                                    </Box>
+                                    <Box pad='small' width='2em' responsive>
+                                        VS
+                                    </Box>
+                                    <Box
+                                        pad='xsmall'
+                                        width='16em'
+                                        responsive
+                                        style={{ placeItems: "center" }}>
+                                        <CSK />
+                                    </Box>
+                                    <Box pad='small' responsive>
+                                        {new Date(match.startDateTime)
+                                            .toUTCString()
+                                            .slice(0, 16)}
+                                    </Box>
+                                </Box>
+                            }
+                            style={{ border: "none", height: "6em" }}>
+                            <Box>
+                                <Text>Match Summary</Text>
+                            </Box>
+                        </AccordionPanel>
+                    </Accordion>
                 ))}
-        </React.Fragment>
+        </div>
     );
 };
 
