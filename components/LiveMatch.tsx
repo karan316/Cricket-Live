@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Match } from "../interfaces";
+import { Box, Text } from "grommet";
+import Loading from "../assets/svg/loading.svg";
+import Logo from "./Logo";
 interface MatchProps {
     match: Match;
     loading: Boolean;
@@ -10,8 +13,8 @@ const LiveMatch: React.FC<MatchProps> = ({ match, loading }) => {
         setLiveMatch(match);
         // console.log("State: Live match", liveMatch);
     }, [match]);
-    if (loading) return <div>Loading...</div>;
-    if (!liveMatch) return <div>No LIVE Matches at the moment</div>;
+    if (loading) return <Loading />;
+    if (!liveMatch) return <Box>No LIVE Matches at the moment</Box>;
     const {
         homeTeam,
         awayTeam,
@@ -22,23 +25,47 @@ const LiveMatch: React.FC<MatchProps> = ({ match, loading }) => {
     } = liveMatch;
     return (
         <React.Fragment>
-            <div className='name'>{name}</div>
-            <div className='scoreboard'>
-                <div className='team'>
-                    <div className='name'>{homeTeam.name}</div>
-                    <div className='logo'>{homeTeam.shortName}</div>
-                    <div className='score'>{scores.homeScore}</div>
-                    <div className='overs'>{scores.homeOvers}</div>
-                </div>
-                <div className='team'>
-                    <div className='name'>{awayTeam.name}</div>
-                    <div className='logo'>{awayTeam.shortName}</div>
-                    <div className='score'>{scores.awayScore}</div>
-                    <div className='overs'>{scores.awayOvers}</div>
-                </div>
-            </div>
-            <div className='result'>{matchSummaryText}</div>
-            <div className='venue'>{venue.name}</div>
+            <Box pad='large' align='center'>
+                <Text size='3rem' textAlign='center'>
+                    Match Summary
+                </Text>
+                <Text>{name}</Text>
+                <Box
+                    direction='row-responsive'
+                    justify='center'
+                    align='center'
+                    pad='xlarge'
+                    gap='xlarge'>
+                    <Box
+                        // pad='large'
+                        align='center'
+                        direction='column'
+                        round='small'
+                        style={{ margin: "0 2em" }}
+                        gap='small'>
+                        <Text size='8rem' color='red'>
+                            {match.scores.homeScore}
+                        </Text>
+                        <Text>{match.scores.homeOvers} overs</Text>
+                        <Logo team={match.homeTeam.name} />
+                    </Box>
+                    <Box
+                        // pad='large'
+                        align='center'
+                        direction='column'
+                        round='small'
+                        style={{ margin: "0 2em" }}
+                        gap='small'>
+                        <Text size='8rem' color='red'>
+                            {match.scores.awayScore}
+                        </Text>
+                        <Text>{match.scores.awayOvers} overs</Text>
+                        <Logo team={match.awayTeam.name} />
+                    </Box>
+                    <Box>{matchSummaryText}</Box>
+                    <Box>{venue.name}</Box>
+                </Box>
+            </Box>
         </React.Fragment>
     );
 };

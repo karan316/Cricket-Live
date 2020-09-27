@@ -16,7 +16,7 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
     if (loading) {
         return (
             <Loading
-                style={{ margin: "15% 50%", width: "4em", height: "4em" }}
+                style={{ margin: "0 auto", width: "4em", height: "4em" }}
             />
         );
     }
@@ -28,12 +28,13 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                     <Accordion
                         animate={true}
                         multiple={true}
+                        width='110em'
                         key={match.name}
-                        margin='medium'
                         style={{
-                            paddingLeft: "1em",
-                            paddingRight: "1em",
+                            paddingLeft: "2em",
+                            paddingRight: "2em",
                             boxShadow: "5px 5px 15px rgba(167, 167, 167, 0.25)",
+                            marginBottom: "0.5em",
                             borderRadius: "10px",
                         }}>
                         <AccordionPanel
@@ -42,9 +43,9 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                     pad='medium'
                                     round='small'
                                     direction='row'
-                                    width='80em'
+                                    width='90em'
                                     justify='between'
-                                    gap='xlarge'
+                                    // gap='medium'
                                     responsive
                                     overflow='auto'
                                     style={{ alignItems: "center" }}
@@ -54,7 +55,7 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                     </Box>
                                     <Box
                                         pad='xsmall'
-                                        width='16em'
+                                        width='fit-content'
                                         responsive
                                         style={{ placeItems: "center" }}>
                                         <Logo
@@ -66,7 +67,7 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                     </Box>
                                     <Box
                                         pad='xsmall'
-                                        width='16em'
+                                        width='fit-content'
                                         responsive
                                         style={{ placeItems: "center" }}>
                                         <Logo
@@ -97,7 +98,7 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                         round='small'
                                         style={{ margin: "0 2em" }}
                                         gap='small'>
-                                        <Text size='8rem' color='red'>
+                                        <Text size='5rem' color='red'>
                                             {match.scores.homeScore}
                                         </Text>
                                         <Text>
@@ -110,7 +111,7 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                         round='small'
                                         style={{ margin: "0 2em" }}
                                         gap='small'>
-                                        <Text size='8rem' color='red'>
+                                        <Text size='5rem' color='red'>
                                             {match.scores.awayScore}
                                         </Text>
                                         <Text>

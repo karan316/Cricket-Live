@@ -100,7 +100,7 @@ const TabSwitcher: React.FC<TabProps> = ({ matches, loading }) => {
                                 loading={loading}
                             />
                         </Tab>
-                        <Tab title='LIVE' disabled>
+                        <Tab title='LIVE'>
                             <LiveMatch match={liveIPLMatch} loading={loading} />
                         </Tab>
                         <Tab title='Upcoming'>
