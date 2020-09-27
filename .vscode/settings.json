@@ -3,6 +3,7 @@
         "completedlimit",
         "host",
         "inprogresslimit",
+        "kxip",
         "rapidapi",
         "seriesid",
         "x",

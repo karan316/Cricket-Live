@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Match } from "../interfaces";
 import { Accordion, AccordionPanel, Box, Text } from "grommet";
 import Loading from "../assets/svg/loading.svg";
-import MI from "../assets/svg/mi.svg";
-import CSK from "../assets/svg/csk.svg";
+// import { MI, CSK, RCB, DC, SRH, KKR, KXIP, RR } from "../logo";
+import Logo from "./Logo";
+import { match } from "assert";
 interface MatchProps {
     matches: Match[];
     loading: Boolean;
 }
+
 const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
     const [completedMatches, setCompletedMatches] = useState<Match[]>(null);
     useEffect(() => {
@@ -25,17 +27,19 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
         <div style={{ marginTop: "0.8em" }}>
             {completedMatches &&
                 completedMatches.map((match) => (
-                    <Accordion animate={true} multiple={true} key={match.name}>
+                    <Accordion
+                        animate={true}
+                        multiple={true}
+                        key={match.name}
+                        margin='medium'>
                         <AccordionPanel
                             label={
                                 <Box
                                     pad='medium'
-                                    // background='white'
                                     round='small'
                                     direction='row'
                                     width='80em'
                                     justify='between'
-                                    // align='stretch'
                                     gap='xlarge'
                                     responsive
                                     overflow='auto'
@@ -54,7 +58,9 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                         width='16em'
                                         responsive
                                         style={{ placeItems: "center" }}>
-                                        <MI />
+                                        <Logo
+                                            team={match.homeTeam.shortName.toUpperCase()}
+                                        />
                                     </Box>
                                     <Box pad='small' width='2em' responsive>
                                         VS
@@ -64,7 +70,9 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                         width='16em'
                                         responsive
                                         style={{ placeItems: "center" }}>
-                                        <CSK />
+                                        <Logo
+                                            team={match.awayTeam.shortName.toUpperCase()}
+                                        />
                                     </Box>
                                     <Box pad='small' responsive>
                                         {new Date(match.startDateTime)
@@ -74,7 +82,7 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                 </Box>
                             }
                             style={{ border: "none", height: "6em" }}>
-                            <Box>
+                            <Box margin='large'>
                                 <Text>Match Summary</Text>
                             </Box>
                         </AccordionPanel>
