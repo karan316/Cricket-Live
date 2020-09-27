@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Match } from "../interfaces";
 import { Accordion, AccordionPanel, Box, Text } from "grommet";
 import Loading from "../assets/svg/loading.svg";
-// import { MI, CSK, RCB, DC, SRH, KKR, KXIP, RR } from "../logo";
 import Logo from "./Logo";
-import { match } from "assert";
 interface MatchProps {
     matches: Match[];
     loading: Boolean;
@@ -31,7 +29,13 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                         animate={true}
                         multiple={true}
                         key={match.name}
-                        margin='medium'>
+                        margin='medium'
+                        style={{
+                            paddingLeft: "1em",
+                            paddingRight: "1em",
+                            boxShadow: "5px 5px 15px rgba(167, 167, 167, 0.25)",
+                            borderRadius: "10px",
+                        }}>
                         <AccordionPanel
                             label={
                                 <Box
@@ -43,12 +47,7 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                                     gap='xlarge'
                                     responsive
                                     overflow='auto'
-                                    style={{
-                                        boxShadow:
-                                            "5px 5px 15px rgba(167, 167, 167, 0.25)",
-                                        // border: "1px solid black",
-                                        alignItems: "center",
-                                    }}
+                                    style={{ alignItems: "center" }}
                                     wrap>
                                     <Box pad='small' responsive>
                                         {match.name}
@@ -83,7 +82,42 @@ const CompletedMatches: React.FC<MatchProps> = ({ matches, loading }) => {
                             }
                             style={{ border: "none", height: "6em" }}>
                             <Box margin='large'>
-                                <Text>Match Summary</Text>
+                                <Text size='3rem' textAlign='center'>
+                                    Match Summary
+                                </Text>
+                                <Box
+                                    direction='row-responsive'
+                                    justify='center'
+                                    align='center'
+                                    pad='xlarge'
+                                    gap='xlarge'>
+                                    <Box
+                                        // pad='large'
+                                        align='center'
+                                        round='small'
+                                        style={{ margin: "0 2em" }}
+                                        gap='small'>
+                                        <Text size='8rem' color='red'>
+                                            {match.scores.homeScore}
+                                        </Text>
+                                        <Text>
+                                            {match.scores.homeOvers} overs
+                                        </Text>
+                                    </Box>
+                                    <Box
+                                        // pad='large'
+                                        align='center'
+                                        round='small'
+                                        style={{ margin: "0 2em" }}
+                                        gap='small'>
+                                        <Text size='8rem' color='red'>
+                                            {match.scores.awayScore}
+                                        </Text>
+                                        <Text>
+                                            {match.scores.awayOvers} overs
+                                        </Text>
+                                    </Box>
+                                </Box>
                             </Box>
                         </AccordionPanel>
                     </Accordion>

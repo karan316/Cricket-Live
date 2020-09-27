@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Match } from "../interfaces";
+import { Box } from "grommet";
+import Loading from "../assets/svg/loading.svg";
+import Logo from "./Logo";
 interface MatchProps {
     matches: Match[];
     loading: Boolean;
@@ -13,34 +16,57 @@ const UpcomingMatches: React.FC<MatchProps> = ({ matches, loading }) => {
         console.log("State: Upcoming matches", upcomingMatches);
     }, [matches]);
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <Loading
+                style={{ margin: "15% 50%", width: "4em", height: "4em" }}
+            />
+        );
     }
     return (
         <React.Fragment>
             {upcomingMatches &&
                 upcomingMatches.map((match) => (
-                    <div key={match.name}>
-                        <div className='name'>{match.name}</div>
-                        <div className='scoreboard'>
-                            <div className='team'>
-                                <div className='name'>
-                                    {match.homeTeam.name}
-                                </div>
-                                <div className='logo'>
-                                    {match.homeTeam.shortName}
-                                </div>
-                            </div>
-                            <div className='team'>
-                                <div className='name'>
-                                    {match.awayTeam.name}
-                                </div>
-                                <div className='logo'>
-                                    {match.awayTeam.shortName}
-                                </div>
-                            </div>
-                        </div>
-                        <div className='venue'>{match.venue.name}</div>
-                    </div>
+                    <Box
+                        pad='medium'
+                        round='small'
+                        direction='row'
+                        // width='50em'
+                        justify='between'
+                        gap='xlarge'
+                        responsive
+                        overflow='auto'
+                        style={{
+                            boxShadow: "5px 5px 15px rgba(167, 167, 167, 0.25)",
+                            // border: "1px solid black",
+                            alignItems: "center",
+                        }}
+                        wrap>
+                        <Box pad='small' responsive>
+                            {match.name}
+                        </Box>
+                        <Box
+                            pad='xsmall'
+                            width='16em'
+                            responsive
+                            style={{ placeItems: "center" }}>
+                            {match.homeTeam.name}
+                        </Box>
+                        <Box pad='small' width='2em' responsive>
+                            VS
+                        </Box>
+                        <Box
+                            pad='xsmall'
+                            width='16em'
+                            responsive
+                            style={{ placeItems: "center" }}>
+                            {match.awayTeam.name}
+                        </Box>
+                        <Box pad='small' responsive>
+                            {new Date(match.startDateTime)
+                                .toUTCString()
+                                .slice(0, 16)}
+                        </Box>
+                    </Box>
                 ))}
         </React.Fragment>
     );

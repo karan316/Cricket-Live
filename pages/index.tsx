@@ -42,7 +42,6 @@ export default function Home() {
             ({
                 matchList: { matches },
             } = data);
-            loading = false;
         }
         console.log(matches);
         completedIPLMatches = matches.filter(
@@ -139,10 +138,8 @@ export default function Home() {
             console.log("No LIVE matches at the moment");
         }
     }
+    loading = false;
 
-    // return <LiveMatch match={liveIPLMatch} />;
-    // return <CompletedMatches matches={completedIPLMatches} loading={loading} />;
-    // return <UpcomingMatches matches={upcomingIPLMatches} loading={loading} />;
     return (
         <TabSwitcher
             matches={{ completedIPLMatches, upcomingIPLMatches, liveIPLMatch }}

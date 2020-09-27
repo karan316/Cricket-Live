@@ -7,29 +7,104 @@ import RCB from "../assets/svg/rcb.svg";
 import KKR from "../assets/svg/kkr.svg";
 import KXIP from "../assets/svg/kxip.svg";
 import React from "react";
+import { ReactSVG } from "react-svg";
 
 interface LogoProps {
     team: string;
 }
-
 const Logo: React.FC<LogoProps> = ({ team }) => {
     switch (team) {
         case "MI":
             return <MI />;
         case "CHE":
-            return <CSK />;
+            return (
+                <ReactSVG
+                    src='csk.svg'
+                    afterInjection={(error, svg) => {
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
+                        console.log(svg);
+                    }}
+                    beforeInjection={(svg) => {
+                        svg.classList.add("svg-class-name-" + Math.random());
+                        svg.id = Math.random().toString();
+                    }}
+                />
+            );
         case "RCB":
-            return <RCB />;
+            return (
+                <ReactSVG
+                    src='rcb.svg'
+                    afterInjection={(error, svg) => {
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
+                        console.log(svg);
+                    }}
+                    beforeInjection={(svg) => {
+                        svg.classList.add("svg-class-name-" + Math.random());
+                        svg.id = Math.random().toString();
+                    }}
+                />
+            );
         case "SUN":
-            return <SRH />;
+            return (
+                <ReactSVG
+                    src='srh.svg'
+                    afterInjection={(error, svg) => {
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
+                        console.log(svg);
+                    }}
+                    beforeInjection={(svg) => {
+                        svg.classList.add("svg-class-name-" + Math.random());
+                        svg.id = Math.random().toString();
+                    }}
+                />
+            );
         case "DEL":
             return <DC />;
         case "RAJ":
-            return <RR />;
+            return (
+                <ReactSVG
+                    src='rr.svg'
+                    afterInjection={(error, svg) => {
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
+                        console.log(svg);
+                    }}
+                    beforeInjection={(svg) => {
+                        svg.classList.add("svg-class-name-" + Math.random());
+                        svg.id = Math.random().toString();
+                    }}
+                />
+            );
         case "KKR":
             return <KKR />;
         case "KXI":
-            return <KXIP />;
+            return (
+                <ReactSVG
+                    src='kxip.svg'
+                    afterInjection={(error, svg) => {
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
+                        console.log(svg);
+                    }}
+                    beforeInjection={(svg) => {
+                        svg.classList.add("svg-class-name-" + Math.random());
+                        svg.id = Math.random().toString();
+                    }}
+                />
+            );
         default:
             break;
     }
