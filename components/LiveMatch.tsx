@@ -11,7 +11,6 @@ const LiveMatch: React.FC<MatchProps> = ({ match, loading }) => {
     const [liveMatch, setLiveMatch] = useState<Match>(null);
     useEffect(() => {
         setLiveMatch(match);
-        // console.log("State: Live match", liveMatch);
     }, [match]);
     if (loading) return <Loading />;
     return (
@@ -21,7 +20,7 @@ const LiveMatch: React.FC<MatchProps> = ({ match, loading }) => {
                     <Text size='3rem' textAlign='center'>
                         Match Summary
                     </Text>
-                    <Text>{name}</Text>
+                    <Text>{match.name}</Text>
                     <Box
                         direction='row-responsive'
                         justify='center'
