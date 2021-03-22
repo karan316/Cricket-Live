@@ -1,11 +1,6 @@
 import MI from "../assets/svg/mi.svg";
-import CSK from "../assets/svg/csk.svg";
-import RR from "../assets/svg/rr.svg";
 import DC from "../assets/svg/dc.svg";
-import SRH from "../assets/svg/srh.svg";
-import RCB from "../assets/svg/rcb.svg";
 import KKR from "../assets/svg/kkr.svg";
-import KXIP from "../assets/svg/kxip.svg";
 import React from "react";
 import { ReactSVG } from "react-svg";
 
@@ -25,7 +20,22 @@ const Logo: React.FC<LogoProps> = ({ team }) => {
                             console.error(error);
                             return;
                         }
-                        console.log(svg);
+                    }}
+                    beforeInjection={(svg) => {
+                        svg.classList.add("svg-class-name-" + Math.random());
+                        svg.id = Math.random().toString();
+                    }}
+                />
+            );
+        case "IPL":
+            return (
+                <ReactSVG
+                    src='ipl.svg'
+                    afterInjection={(error, svg) => {
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
                     }}
                     beforeInjection={(svg) => {
                         svg.classList.add("svg-class-name-" + Math.random());
@@ -42,7 +52,6 @@ const Logo: React.FC<LogoProps> = ({ team }) => {
                             console.error(error);
                             return;
                         }
-                        console.log(svg);
                     }}
                     beforeInjection={(svg) => {
                         svg.classList.add("svg-class-name-" + Math.random());
@@ -59,7 +68,6 @@ const Logo: React.FC<LogoProps> = ({ team }) => {
                             console.error(error);
                             return;
                         }
-                        console.log(svg);
                     }}
                     beforeInjection={(svg) => {
                         svg.classList.add("svg-class-name-" + Math.random());
@@ -78,7 +86,6 @@ const Logo: React.FC<LogoProps> = ({ team }) => {
                             console.error(error);
                             return;
                         }
-                        console.log(svg);
                     }}
                     beforeInjection={(svg) => {
                         svg.classList.add("svg-class-name-" + Math.random());
@@ -97,7 +104,6 @@ const Logo: React.FC<LogoProps> = ({ team }) => {
                             console.error(error);
                             return;
                         }
-                        console.log(svg);
                     }}
                     beforeInjection={(svg) => {
                         svg.classList.add("svg-class-name-" + Math.random());

@@ -6,7 +6,7 @@ import { Match } from "../interfaces";
 import UpcomingMatches from "./UpcomingMatches";
 import LiveMatch from "./LiveMatch";
 import { Colors } from "grommet/themes/base";
-
+import Logo from "./Logo";
 const colors: Colors = {
     text: {
         dark: "#000000",
@@ -92,7 +92,9 @@ const TabSwitcher: React.FC<TabProps> = ({ matches, loading }) => {
         <Grommet theme={customTheme}>
             <Box gap='large' pad='large'>
                 <Box border gap='medium' pad='medium'>
-                    <Text weight='bold'>IPL 2020</Text>
+                    <Box>
+                        <Logo team='IPL' />
+                    </Box>
                     <Tabs activeIndex={index} onActive={onActive}>
                         <Tab title='Completed'>
                             <CompletedMatches
